@@ -4,8 +4,10 @@ const mongoose = require("mongoose")
 const app = express()
 
 
-app.get("/", (req, res) => {
-  res.send("!")
+app.get("/", async (req, res) => {
+  const a = await mongoose.connection.db.listCollections().toArray()
+  
+  res.send(JSON.stringify(a.map(e => e.name)))
 })
 
 app.listen(4000, () => {
